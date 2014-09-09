@@ -5,8 +5,5 @@
 - name: Add global composer bin directory to PATH
   lineinfile: dest=~/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH"
 
-- name: Souce bashrc
-  shell: source ~/.bashrc
-
 - name: Install drush
   shell: composer global require drush/drush:dev-master --no-interaction --no-ansi
