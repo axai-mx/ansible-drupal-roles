@@ -8,5 +8,5 @@
   with_dict: sites
 
 - name: Create files path
-  file: path=/var/www/vhosts/{{ item.key }}/drupal/default/files state=directory mode=2775 group=www-data recurse=yes
+  file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 group=www-data recurse=yes
   with_dict: sites
