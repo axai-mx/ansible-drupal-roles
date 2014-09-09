@@ -4,7 +4,7 @@
   with_dict: sites
 
 - name: Copy the code from repository
-  git: repo={{ item.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.version }}
+  git: repo={{ item.value.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.value.version }}
   with_dict: sites
 
 - name: Create files path
