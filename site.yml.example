@@ -1,8 +1,8 @@
 ---
-- name: Install Drupal, MySQL, Nginx, and PHP-FPM
-  hosts: drupal-server
+- name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
+  hosts: all
   user: root
-  # remote_user: user
+  # remote_user: vagrant
   # sudo: yes
 
   roles:
@@ -12,14 +12,14 @@
     - php-fpm
     - drush
     - {
-        role: drupal
+        role: drupal,
         sites: {
           www.example.com: {
-            git: "http://git.drupal.org/project/drupal.git"
-            version: 8.0.x
-            dbname: drupal8
-            dbuser: drupal8
-            dbpass: test
+            git: "http://git.drupal.org/project/drupal.git",
+            version: 8.0.x,
+            dbname: drupal8,
+            dbuser: drupal8,
+            dbpass: test,
           }
-        }
+        },
       }
