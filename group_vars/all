@@ -1,0 +1,37 @@
+---
+# MySQL
+#
+# For db only servers 70-80% of mem. For shared, maybe 30%
+innodb_buffer_pool_size: 512M
+# do not flush neighbour pages on SSD there's no seek penalty. Turn on only on HDD
+innodb_flush_neighbors: 0
+
+# nginx
+#
+server_hostname: www.example.com
+site_path: /var/www/vhosts/{{ server_hostname }}/drupal
+# should be also the size of upload_max_filesize and post_max_size php.ini vars
+client_max_body_size: 64M
+
+# PHP
+#
+php_memory_limit: 256M
+# used to be apc_shm_size, MB is implied
+opcache_memory_consumption: 128
+date_timezone: "America/Mexico_City"
+# PHP-FPM config
+# with more than 16GB of mem use commented values
+#pm_max_children: 170
+pm_max_children: 70
+#pm_start_servers: 50
+pm_start_servers: 20
+#pm_min_spare_servers: 50
+pm_min_spare_servers: 20
+#pm_max_spare_servers: 170
+pm_max_spare_servers: 70
+#pm_max_requests: 10000
+pm_max_requests: 500
+
+# Drupal
+#
+drupal_repo: 

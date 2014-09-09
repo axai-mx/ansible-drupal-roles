@@ -1,0 +1,14 @@
+---
+- name: Install nginx
+  apt: name=nginx
+
+- name: Copy the code from repository
+  git: repo=https://github.com/jackbravo/simple-drupal-nginx.git dest=/etc/nginx/simple-drupal-nginx/
+
+- name: Copy nginx configuration
+  template: src=default.conf dest=/etc/nginx/sites-available/{{ server_hostname }}
+  notify: restart nginx
+
+- name: Enable nginx configuration
+  file: src=/etc/nginx/sites-available/{{ server_hostname }} dest=/etc/nginx/sites-enabled/{{ server_hostname }} state=link
+  notify: restart nginx

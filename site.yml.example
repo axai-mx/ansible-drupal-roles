@@ -1,0 +1,25 @@
+---
+- name: Install Drupal, MySQL, Nginx, and PHP-FPM
+  hosts: drupal-server
+  user: root
+  # remote_user: user
+  # sudo: yes
+
+  roles:
+    - common
+    - mysql 
+    - nginx
+    - php-fpm
+    - drush
+    - {
+        role: drupal
+        sites: {
+          www.example.com: {
+            git: "http://git.drupal.org/project/drupal.git"
+            version: 8.0.x
+            dbname: drupal8
+            dbuser: drupal8
+            dbpass: test
+          }
+        }
+      }

@@ -1,0 +1,28 @@
+---
+- name: Add MariaDB key
+  apt_key: id=0xcbcb082a1bb943db keyserver=hkp://keyserver.ubuntu.com:80
+
+- name: Add MariaDB 10.0  repository
+  apt_repository: repo='deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main' state=present
+
+- name: Install MariaDB 10.0
+  apt: name={{ item }}
+  with_items:
+    - mariadb-server
+    - python-mysqldb
+
+- name: Create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  notify: 
+  - restart mysql
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=true
+
+- name: Create database
+  mysql_db: name={{ item.dbname }} state=present
+  with_dict: sites
+
+- name: Create database user
+  mysql_user: name={{ item.dbuser }} password={{ item.dbpass }} priv={{ item.dbname }}.*:ALL host='localhost' state=present
+  with_dict: sites

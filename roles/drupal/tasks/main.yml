@@ -1,0 +1,12 @@
+---
+- name: make sure the vhosts directory exists
+  file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 group=users
+  with_dict: sites
+
+- name: Copy the code from repository
+  git: repo={{ item.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.version }}
+  with_dict: sites
+
+- name: Create files path
+  file: path=/var/www/vhosts/{{ item.key }}/drupal/default/files state=directory mode=2775 group=www-data recurse=yes
+  with_dict: sites

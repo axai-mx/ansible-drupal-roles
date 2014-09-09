@@ -1,0 +1,11 @@
+---
+- name: Install Common packages
+  apt: name={{ item }}
+  with_items:
+    - fish
+    - git
+    - htop
+    - iotop
+    - fail2ban
+    - curl
+    - vim-nox
