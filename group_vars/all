@@ -8,8 +8,6 @@ innodb_flush_neighbors: 0
 
 # nginx
 #
-server_hostname: www.example.com
-site_path: /var/www/vhosts/{{ server_hostname }}/drupal
 # should be also the size of upload_max_filesize and post_max_size php.ini vars
 client_max_body_size: 64M
 

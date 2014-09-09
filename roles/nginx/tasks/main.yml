@@ -2,13 +2,15 @@
 - name: Install nginx
   apt: name=nginx
 
-- name: Copy the code from repository
+- name: Clone drupal.conf from repository
   git: repo=https://github.com/jackbravo/simple-drupal-nginx.git dest=/etc/nginx/simple-drupal-nginx/
 
-- name: Copy nginx configuration
-  template: src=default.conf dest=/etc/nginx/sites-available/{{ server_hostname }}
+- name: Create sites-available configurations
+  template: src=default.conf dest=/etc/nginx/sites-available/{{ item.key }}
+  with_dict: sites
   notify: restart nginx
 
-- name: Enable nginx configuration
-  file: src=/etc/nginx/sites-available/{{ server_hostname }} dest=/etc/nginx/sites-enabled/{{ server_hostname }} state=link
+- name: Link sites-enabled configurations
+  file: src=/etc/nginx/sites-available/{{ item.key }} dest=/etc/nginx/sites-enabled/{{ item.key }} state=link
+  with_dict: sites
   notify: restart nginx
