@@ -2,8 +2,18 @@
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
   hosts: all
   user: root
-  # remote_user: vagrant
-  # sudo: yes
+  # Uncoment this to use with vagrant
+  #remote_user: vagrant
+  #sudo: yes
+
+  vars:
+    sites:
+      drupal8.axai.org:
+        git: "http://git.drupal.org/project/drupal.git"
+        version: 8.0.x
+        dbname: drupal8
+        dbuser: drupal8
+        dbpass: test
 
   roles:
     - common
@@ -11,15 +21,4 @@
     - nginx
     - php-fpm
     - drush
-    - {
-        role: drupal,
-        sites: {
-          www.example.com: {
-            git: "http://git.drupal.org/project/drupal.git",
-            version: 8.0.x,
-            dbname: drupal8,
-            dbuser: drupal8,
-            dbpass: test,
-          }
-        },
-      }
+    - drupal
