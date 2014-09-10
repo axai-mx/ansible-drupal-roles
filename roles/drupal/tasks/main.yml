@@ -4,7 +4,7 @@
   when: ansible_ssh_user != 'root'
   
 - name: make sure the vhosts directory exists
-  file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 group=users
+  file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 owner={{ ansible_ssh_user }} group=users
   with_dict: sites
 
 - name: Clone the code from repository
