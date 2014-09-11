@@ -4,6 +4,7 @@
   with_items:
     - fish
     - git
+    - tig
     - htop
     - iotop
     - fail2ban
