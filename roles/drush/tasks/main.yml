@@ -6,6 +6,16 @@
 
 - name: Add global composer bin directory to PATH
   lineinfile: dest=~/.bashrc line="export PATH=~/.composer/vendor/bin:$PATH"
+  sudo: no
 
-- name: Install drush
-  shell: composer global require drush/drush:dev-master --no-interaction --no-ansi
+- name: Checkout Drush repository
+  git: dest=/opt/drush repo=https://github.com/drush-ops/drush.git version=master
+
+- name: Composer install (drush dependencies)
+  composer: working_dir=/opt/drush
+
+- name: Create Drush binary symlink
+  file: path=/usr/local/bin/drush src=/opt/drush/drush state=link
+
+- name: Configure Drush BASH completion
+  file: src=/opt/drush/drush.complete.sh path=/etc/bash_completion.d/drush state=link
