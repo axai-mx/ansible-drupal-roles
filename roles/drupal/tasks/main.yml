@@ -23,14 +23,12 @@
   with_dict: sites
 
 - name: Copy default.settings.php file
-  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chgrp www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
+  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chown {{ ansible_ssh_user }}:www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
   with_dict: sites
-  sudo: no
 
 - name: Copy default.services.yml file (ignores errors for non D8 sites)
-  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.services.yml /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chgrp www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
+  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.services.yml /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chown {{ ansible_ssh_user }}:www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
   with_dict: sites
-  sudo: no
   ignore_errors: true
