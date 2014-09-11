@@ -15,6 +15,9 @@
         dbname: drupal8
         dbuser: drupal8
         dbpass: test
+        # use this if cloning using ssh
+        #host: git.drupal.org
+        #hostkey: "hostkey produced by ssh-keysan 'host'"
 
   roles:
     - common

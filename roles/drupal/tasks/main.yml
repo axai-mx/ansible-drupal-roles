@@ -7,8 +7,14 @@
   file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 owner={{ ansible_ssh_user }} group=users
   with_dict: sites
 
+- name: If cloning with ssh, make sure the key exists in known_hosts file
+  lineinfile: dest=~/.ssh/known_hosts regexp=^{{ item.value.host }} line="{{ item.value.hostkey }}" mode=0600 create=yes
+  with_dict: sites
+  when: item.value.hostkey is defined
+  sudo: no
+
 - name: Clone the code from repository
-  git: repo={{ item.value.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.value.version }} accept_hostkey=yes
+  git: repo={{ item.value.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.value.version }}
   with_dict: sites
   sudo: no
 
