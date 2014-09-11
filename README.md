@@ -3,6 +3,9 @@
 - Requires Ansible 1.6 or newer
 - Expects Ubuntu 14.04 hosts
 
+If you need ssh agent forwarding with vagrant you can add
+`config.ssh.forward_agent = true` to your Vagrantfile.
+
 These playbooks deploy a simple all-in-one configuration of the popular
 Drupal software platform and CMS, frontend by the Nginx web server and the
 PHP-FPM process manager. To use, copy the `hosts.example` file to `hosts` and 
