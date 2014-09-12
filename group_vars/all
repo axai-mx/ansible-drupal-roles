@@ -19,16 +19,16 @@ opcache_memory_consumption: 128
 date_timezone: "America/Mexico_City"
 # PHP-FPM config
 # with more than 16GB of mem use commented values
-#pm_max_children: 170
-pm_max_children: 70
-#pm_start_servers: 50
-pm_start_servers: 20
-#pm_min_spare_servers: 50
-pm_min_spare_servers: 20
-#pm_max_spare_servers: 170
-pm_max_spare_servers: 70
+#pm_max_children: 250
+pm_max_children: 150
+#pm_start_servers: 100
+pm_start_servers: 50
+#pm_min_spare_servers: 100
+pm_min_spare_servers: 50
+#pm_max_spare_servers: 200
+pm_max_spare_servers: 100
 #pm_max_requests: 10000
-pm_max_requests: 500
+pm_max_requests: 1000
 
 # Drupal
 #
