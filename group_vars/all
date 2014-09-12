@@ -1,35 +1,46 @@
 ---
+##################################
 # MySQL
-#
-# For db only servers 70-80% of mem. For shared, maybe 30%
-innodb_buffer_pool_size: 512M
+##################################
+# For db only servers 70-80% of mem. For shared, maybe 20%
+# For a DB only server
+#innodb_buffer_pool_size: 1536M
+# For a 2 GB VPS single server (php+nginx+mysql)
+innodb_buffer_pool_size: 256M
+
 # do not flush neighbour pages on SSD there's no seek penalty. Turn on only on HDD
 innodb_flush_neighbors: 0
 
+##################################
 # nginx
-#
+##################################
 # should be also the size of upload_max_filesize and post_max_size php.ini vars
 client_max_body_size: 64M
 
+##################################
 # PHP
-#
+##################################
+# normal value for a drupal (even panopoly) site
 php_memory_limit: 256M
 # used to be apc_shm_size, MB is implied
 opcache_memory_consumption: 128
 date_timezone: "America/Mexico_City"
-# PHP-FPM config
-# with more than 16GB of mem use commented values
-#pm_max_children: 250
-pm_max_children: 150
-#pm_start_servers: 100
-pm_start_servers: 50
-#pm_min_spare_servers: 100
-pm_min_spare_servers: 50
-#pm_max_spare_servers: 200
-pm_max_spare_servers: 100
-#pm_max_requests: 10000
-pm_max_requests: 1000
 
-# Drupal
-#
-drupal_repo: 
+##################################
+# PHP-FPM config
+##################################
+# recommended for 16GB VPS (not tested yet)
+#pm_max_children: 150
+#pm_start_servers: 100
+#pm_min_spare_servers: 100
+#pm_max_spare_servers: 200
+#pm_max_requests: 10000
+
+# recommended for 2 GB VPS
+# If we receive more than {{ max_children }} logged in users with long requests,
+# we will get 502 bad gateway errors.
+pm_max_children: 50
+pm_start_servers: 20
+pm_min_spare_servers: 20
+pm_max_spare_servers: 20
+pm_max_requests: 500
