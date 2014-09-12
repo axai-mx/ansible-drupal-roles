@@ -18,8 +18,12 @@
   with_dict: sites
   sudo: no
 
-- name: Create files path
+- name: Create files folder
   file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group=www-data recurse=yes
+  with_dict: sites
+
+- name: Create cahe folder (boost)
+  file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group=www-data recurse=yes
   with_dict: sites
 
 - name: Copy default.settings.php file
