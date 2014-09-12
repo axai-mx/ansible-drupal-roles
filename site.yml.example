@@ -22,9 +22,9 @@
         #hostkey: "hostkey produced by ssh-keysan 'host'"
 
   roles:
-    - common
-    - mysql 
-    - nginx
-    - php-fpm
-    - drush
-    - drupal
+    - { role: common, tags: [common] }
+    - { role: mysql , tags: [mysql] }
+    - { role: php-fpm, tags: [php-fpm] }
+    - { role: drush, tags: [drush] }
+    - { role: drupal, tags: [drupal] }
+    - { role: nginx, tags: [nginx] }
