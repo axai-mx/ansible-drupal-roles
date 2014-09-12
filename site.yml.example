@@ -15,6 +15,8 @@
         dbname: drupal8
         dbuser: drupal8
         dbpass: test
+        # use this if the site has aliases (so we can redirect)
+        #aliases: ["www.drupal8.axai.org"]
         # use this if cloning using ssh
         #host: git.drupal.org
         #hostkey: "hostkey produced by ssh-keysan 'host'"
