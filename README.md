@@ -1,7 +1,7 @@
 ## Drupal+Nginx+PHP-FPM Deployment
 
 - Requires Ansible 1.6 or newer
-- Expects Ubuntu 14.04 hosts
+- Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
 
 If you need ssh agent forwarding with vagrant you can add
 `config.ssh.forward_agent = true` to your Vagrantfile.
