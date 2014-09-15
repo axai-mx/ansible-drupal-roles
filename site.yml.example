@@ -1,6 +1,6 @@
 ---
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
-  hosts: all
+  hosts: drupal-server
   user: root
   # Uncoment this to use with vagrant
   # If using vagrant you can add "config.ssh.forward_agent = true" to your Vagrantfile to clone repos in private servers
