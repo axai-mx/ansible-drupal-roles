@@ -1,3 +1,9 @@
 mysql_socket: /var/run/mysqld/mysqld.sock
 mysql_conf_d: /etc/mysql/conf.d/
 my_cnf_dest: /etc/mysql/my.cnf
+
+php_fpm_daemon: php5-fpm
+php_ini_dest: /etc/php5/fpm/php.ini
+php_fpm_conf: /etc/php5/fpm/pool.d/www.conf
+
+www_user: www-data

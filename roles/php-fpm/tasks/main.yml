@@ -1,18 +1,42 @@
 ---
-- name: Install php-fpm and deps 
+- group_by: key={{ ansible_os_family }}
+
+- name: Install php-fpm and deps (Ubuntu)
   apt: name={{ item }}
   with_items:
     - php5-fpm
     - php5-cli
     - php5-gd
-    - php5-mysql
+    - php5-mysqlnd
     - php5-memcache
     - php5-curl
+  when: ansible_os_family == 'Debian'
+
+- name: Enable remi CentOS key for newer PHP
+  rpm_key: key=http://rpms.famillecollet.com/RPM-GPG-KEY-remi
+  when: ansible_os_family == 'RedHat'
+
+- name: Enable remi CentOS repo for newer PHP
+  yum: name=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+  when: ansible_os_family == 'RedHat'
+
+- name: Install php-fpm and deps (Centos)
+  yum: name={{ item }} enablerepo=remi,remi-php55
+  with_items:
+    - php-fpm
+    - php-cli
+    - php-opcache
+    - php-gd
+    - php-mysqlnd
+    - php-pecl-memcache
+    - php-mbstring
+    - php-xml
+  when: ansible_os_family == 'RedHat'
 
 - name: Copy php.ini
-  template: src=php.ini dest=/etc/php5/fpm/php.ini
-  notify: restart php5-fpm
+  template: src=php.ini dest={{ php_ini_dest }}
+  notify: restart php-fpm
 
 - name: Copy www.conf
-  template: src=www.conf dest=/etc/php5/fpm/pool.d/www.conf
-  notify: restart php5-fpm
+  template: src=www.conf dest={{ php_fpm_conf }}
+  notify: restart php-fpm
