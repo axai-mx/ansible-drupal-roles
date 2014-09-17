@@ -40,6 +40,6 @@
   ignore_errors: true
 
 - name: Create sites configurations
-  template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}
+  template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: sites
   notify: restart nginx
