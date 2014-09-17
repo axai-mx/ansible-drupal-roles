@@ -2,6 +2,7 @@
 ##################################
 # MySQL
 ##################################
+mysql_bind_address: 127.0.0.1
 query_cache_limit: 1M
 query_cache_size: 64M
 # myisam
