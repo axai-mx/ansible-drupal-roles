@@ -24,7 +24,7 @@
   file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
 
-- name: Create cahe folder (boost)
+- name: Create cache folder (boost)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
 
