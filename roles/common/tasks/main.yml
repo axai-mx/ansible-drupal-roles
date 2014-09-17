@@ -28,11 +28,6 @@
     - byobu
   when: ansible_os_family == 'RedHat'
 
-- name: set up .tmux.conf for user
-  get_url: url=https://gist.githubusercontent.com/jackbravo/7163635/raw/81d353fe42397d907edb9b6a532a8345552fba73/.tmux.conf dest=~/.tmux.conf
-  sudo: no
-  when: ansible_os_family == 'RedHat'
-
 - name: Install fish
   yum: name=http://fishshell.com/files/2.1.0/linux/RedHat_RHEL-6/fish-2.1.0-2.1.x86_64.rpm
   when: ansible_os_family == 'RedHat'
