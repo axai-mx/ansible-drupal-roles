@@ -26,6 +26,8 @@
     - curl
     - vim
     - byobu
+    - libselinux-python
+    - libsemanage-python
   when: ansible_os_family == 'RedHat'
 
 - name: Install fish

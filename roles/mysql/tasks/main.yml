@@ -1,18 +1,51 @@
 ---
-- name: Add MariaDB key
+- group_by: key={{ ansible_os_family }}
+
+### Install MySQL Ubuntu {
+
+- name: Add MariaDB key (Ubuntu)
   apt_key: id=0xcbcb082a1bb943db keyserver=hkp://keyserver.ubuntu.com:80
+  when: ansible_os_family == 'Debian'
 
-- name: Add MariaDB 10.0  repository
+- name: Add MariaDB 10.0 repository (Ubuntu)
   apt_repository: repo='deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main' state=present
+  when: ansible_os_family == 'Debian'
 
-- name: Install MariaDB 10.0
+- name: Install MariaDB 10.0 (Ubuntu)
   apt: name={{ item }}
   with_items:
     - mariadb-server
     - python-mysqldb
+  when: ansible_os_family == 'Debian'
+
+### }
+
+### Install MySQL CentOS {
+
+- name: Add MariaDB 10.0 repository (CentOS)
+  template: src=MariaDB.repo dest=/etc/yum.repos.d/MariaDB.repo
+  when: ansible_os_family == 'RedHat'
+
+- name: Add MariaDB key (CentOS)
+  rpm_key: key=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+  when: ansible_os_family == 'RedHat'
+
+- name: Install MariaDB 10.0 (CentOS)
+  yum: name={{ item }}
+  with_items:
+    - MariaDB-server
+    - MariaDB-client
+    - MySQL-python
+  when: ansible_os_family == 'RedHat'
+
+- name: Configure SELinux to start mysql on any port
+  seboolean: name=mysql_connect_any state=true persistent=yes
+  when: ansible_os_family == 'RedHat' and ansible_selinux.status == "enabled"
+
+### }
 
 - name: Create Mysql configuration file
-  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  template: src=my.cnf.j2 dest={{ my_cnf_dest }}
   notify: 
   - restart mysql
 
