@@ -1,3 +1,4 @@
+mysql_pid: /var/run/mysqld/mysqld.pid
 mysql_socket: /var/run/mysqld/mysqld.sock
 mysql_conf_d: /etc/mysql/conf.d/
 my_cnf_dest: /etc/mysql/my.cnf
