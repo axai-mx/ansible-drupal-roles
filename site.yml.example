@@ -13,6 +13,7 @@
         dbname: drupal8
         dbuser: drupal8
         dbpass: test
+        dbhost: localhost
         # use this if the site has aliases (so we can redirect)
         #aliases: ["www.drupal8.axai.org"]
         # use this if cloning using ssh
