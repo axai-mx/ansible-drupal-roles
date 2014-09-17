@@ -1,16 +1,18 @@
 ---
-- name: Install nginx
+- name: Install nginx on Ubuntu
   apt: name=nginx
+  when: ansible_os_family == 'Debian'
+
+- name: Enable nginx repo on CentOS
+  yum: name=http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+  when: ansible_os_family == 'RedHat'
+
+- name: Install nginx on CentOS
+  yum: name=nginx
+  when: ansible_os_family == 'RedHat'
 
 - name: Clone drupal.conf from repository
   git: repo=https://github.com/axai-mx/simple-drupal-nginx.git dest=/etc/nginx/simple-drupal-nginx/
 
-- name: Create sites-available configurations
-  template: src=default.conf dest=/etc/nginx/sites-available/{{ item.key }}
-  with_dict: sites
-  notify: restart nginx
-
-- name: Link sites-enabled configurations
-  file: src=/etc/nginx/sites-available/{{ item.key }} dest=/etc/nginx/sites-enabled/{{ item.key }} state=link
-  with_dict: sites
-  notify: restart nginx
+- name: Ensure nginx is started and enabled to start at boot.
+  service: name=nginx state=started enabled=yes

@@ -7,3 +7,5 @@ php_ini_dest: /etc/php5/fpm/php.ini
 php_fpm_conf: /etc/php5/fpm/pool.d/www.conf
 
 www_user: www-data
+
+nginx_conf_dir: sites-enabled

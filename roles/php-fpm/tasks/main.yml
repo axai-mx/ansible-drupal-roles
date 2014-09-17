@@ -33,6 +33,9 @@
     - php-xml
   when: ansible_os_family == 'RedHat'
 
+- name: Make sure php-fpm is running
+  service: state=started name={{ php_fpm_daemon }} enabled=yes
+
 - name: Copy php.ini
   template: src=php.ini dest={{ php_ini_dest }}
   notify: restart php-fpm

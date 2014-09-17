@@ -7,3 +7,5 @@ php_ini_dest: /etc/php.ini
 php_fpm_conf: /etc/php-fpm.d/www.conf
 
 www_user: nginx
+
+nginx_conf_dir: conf.d

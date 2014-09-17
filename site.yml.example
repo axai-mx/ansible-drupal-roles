@@ -23,7 +23,7 @@
   roles:
     - { role: common, tags: [common] }
     - { role: mysql , tags: [mysql] }
+    - { role: nginx, tags: [nginx] }
     - { role: php-fpm, tags: [php-fpm] }
     - { role: drush, tags: [drush] }
     - { role: drupal, tags: [drupal] }
-    - { role: nginx, tags: [nginx] }

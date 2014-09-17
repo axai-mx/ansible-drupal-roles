@@ -1,6 +1,8 @@
 ---
+- group_by: key={{ ansible_os_family }}
+
 - name: make sure the ssh user is part of users
-  user: name={{ ansible_ssh_user }} groups=www-data,users append=yes
+  user: name={{ ansible_ssh_user }} groups=users,{{ www_user }} append=yes
   when: ansible_ssh_user != 'root'
   
 - name: make sure the vhosts directory exists
@@ -19,20 +21,25 @@
   sudo: no
 
 - name: Create files folder
-  file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group=www-data recurse=yes
+  file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
 
 - name: Create cahe folder (boost)
-  file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group=www-data recurse=yes
+  file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
 
 - name: Copy default.settings.php file
-  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chown {{ ansible_ssh_user }}:www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
+  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chown {{ ansible_ssh_user }}:{{ www_user }} /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
   with_dict: sites
 
 - name: Copy default.services.yml file (ignores errors for non D8 sites)
-  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.services.yml /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chown {{ ansible_ssh_user }}:www-data /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
+  shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.services.yml /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chown {{ ansible_ssh_user }}:{{ www_user }} /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/services.yml
   with_dict: sites
   ignore_errors: true
+
+- name: Create sites configurations
+  template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}
+  with_dict: sites
+  notify: restart nginx
