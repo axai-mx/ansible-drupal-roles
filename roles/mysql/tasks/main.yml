@@ -52,6 +52,34 @@
 - name: Start Mysql Service
   service: name=mysql state=started enabled=true
 
+- name: Check if .my.cnf file already exists.
+  stat: path=/root/.my.cnf
+  register: mycnf_file
+
+# 'localhost' needs to be the last item for idempotency, see
+# http://docs.ansible.com/mysql_user_module.html
+- name: Update MySQL root password for all root accounts.
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }}
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  when: mycnf_file.stat.exists == false
+
+# Has to be after the root password assignment, for idempotency.
+- name: Copy .my.cnf file with root password credentials.
+  template: src=root-my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=600
+
+- name: Delete anonymous MySQL user for localhost.
+  mysql_user: >
+    name=""
+    state=absent
+
+- name: Remove the MySQL test database.
+  mysql_db: >
+    name="test"
+    state=absent
+
 - name: Create database
   mysql_db: name={{ item.value.dbname }} state=present
   with_dict: sites
