@@ -76,9 +76,9 @@
     state=absent
 
 - name: Create database
-  mysql_db: name={{ item.value.dbname }} state=present
-  with_dict: sites
+  mysql_db: name={{ item.key }} state=present
+  with_dict: dbs
 
 - name: Create database user
-  mysql_user: name={{ item.value.dbuser }} password={{ item.value.dbpass }} priv={{ item.value.dbname }}.*:ALL host={{ item.value.dbhost }} state=present
-  with_dict: sites
+  mysql_user: name={{ item.value.dbuser }} password={{ item.value.dbpass }} priv={{ item.key }}.*:ALL host={{ item.value.dbhost }} state=present
+  with_dict: dbs

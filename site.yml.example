@@ -10,15 +10,16 @@
       drupal8.axai.org:
         git: "http://git.drupal.org/project/drupal.git"
         version: 8.0.x
-        dbname: drupal8
-        dbuser: drupal8
-        dbpass: test
-        dbhost: localhost
         # use this if the site has aliases (so we can redirect)
         #aliases: ["www.drupal8.axai.org"]
         # use this if cloning using ssh
         #host: git.drupal.org
         #hostkey: "hostkey produced by ssh-keysan 'host'"
+    dbs:
+      drupal8:
+        dbuser: drupal8
+        dbpass: test
+        dbhost: localhost
 
   roles:
     - { role: common, tags: [common] }
