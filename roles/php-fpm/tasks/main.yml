@@ -10,7 +10,7 @@
     - php5-mysqlnd
     - php5-memcache
     - php5-curl
-    - mysql-client
+    - mariadb-client
   when: ansible_os_family == 'Debian'
 
 - name: Enable remi CentOS key for newer PHP
