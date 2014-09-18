@@ -15,7 +15,9 @@
   apt: name={{ item }}
   with_items:
     - mariadb-server
+    - mariadb-client
     - python-mysqldb
+    - mytop
   when: ansible_os_family == 'Debian'
 
 ### }
@@ -35,6 +37,8 @@
   with_items:
     - MariaDB-server
     - MySQL-python
+    - mytop
+    - innotop
   when: ansible_os_family == 'RedHat'
 
 ### }
