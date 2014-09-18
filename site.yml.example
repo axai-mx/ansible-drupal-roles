@@ -12,6 +12,8 @@
         version: 8.0.x
         # use this if the site has aliases (so we can redirect)
         #aliases: ["www.drupal8.axai.org"]
+        # use this if you want this to be the default_server in nginx
+        #default: yes
         # use this if cloning using ssh
         #host: git.drupal.org
         #hostkey: "hostkey produced by ssh-keysan 'host'"
