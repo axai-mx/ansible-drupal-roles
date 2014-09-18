@@ -17,6 +17,16 @@ myisam_sort_buffer_size: 128M
 innodb_buffer_pool_size: 256M
 # do not flush neighbour pages on SSD there's no seek penalty. Turn on only on HDD
 innodb_flush_neighbors: 0
+# ATTENTION!!! If you want to change this value you have to take special steps
+# If the customer already has InnoDB tables and wants to change the 
+# size of the InnoDB tablespace and InnoDB logs, then:
+# 1. Run a full backup with mysqldump
+# 2. Stop MySQL
+# 3. Move current ibdata and ib_logfiles out of /var/lib/mysql
+# 4. Uncomment the below innodb_data_file_path and innodb_log_file_size
+# 5. Start MySQL (it will recreate new InnoDB files)
+# 6. Restore data from backup
+innodb_log_file_size: 50M
 
 ##################################
 # nginx

@@ -52,7 +52,7 @@ max_connections		=  151
 connect_timeout		=  5
 wait_timeout		=  600
 max_allowed_packet	= 32M
-thread_cache_size       = 128
+thread_cache_size       = 50
 sort_buffer_size	= 4M
 bulk_insert_buffer_size	= 16M
 tmp_table_size		= 32M
@@ -94,7 +94,7 @@ log_warnings		= 2
 #
 # Enable the slow query log to see queries with especially long duration
 slow_query_log=1
-slow_query_log_file	= /var/log/mysql/mariadb-slow.log
+slow_query_log_file	= /var/lib/mysql/mariadb-slow.log
 long_query_time = 10
 #log_slow_rate_limit	= 1000
 log_slow_verbosity	= query_plan
@@ -109,10 +109,10 @@ log_slow_verbosity	= query_plan
 #report_host		= master1
 #auto_increment_increment = 2
 #auto_increment_offset	= 1
-#log_bin			= /var/log/mysql/mariadb-bin
-#log_bin_index		= /var/log/mysql/mariadb-bin.index
+log_bin			= /var/lib/mysql/mariadb-bin
+log_bin_index		= /var/lib/mysql/mariadb-bin.index
 # not fab for performance, but safer
-#sync_binlog		= 1
+sync_binlog		= 1
 expire_logs_days	= 10
 max_binlog_size         = 100M
 # slaves
@@ -132,7 +132,7 @@ max_binlog_size         = 100M
 # Read the manual for more InnoDB related options. There are many!
 default_storage_engine	= InnoDB
 # you can't just change log file size, requires special procedure
-#innodb_log_file_size	= 50M
+innodb_log_file_size	= {{ innodb_log_file_size }}
 innodb_buffer_pool_size	=  {{ innodb_buffer_pool_size }}
 innodb_log_buffer_size	= 8M
 innodb_file_per_table	= 1
