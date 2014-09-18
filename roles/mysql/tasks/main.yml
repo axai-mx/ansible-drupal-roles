@@ -80,5 +80,5 @@
   with_dict: dbs
 
 - name: Create database user
-  mysql_user: name={{ item.value.dbuser }} password={{ item.value.dbpass }} priv={{ item.key }}.*:ALL host={{ item.value.dbhost }} state=present
+  mysql_user: name={{ item.value.dbuser }} password={{ item.value.dbpass }} priv={{ item.key }}.*:ALL host={{ item.value.dbhost }} state=present append_privs=yes
   with_dict: dbs
