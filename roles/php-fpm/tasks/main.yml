@@ -10,6 +10,7 @@
     - php5-mysqlnd
     - php5-memcache
     - php5-curl
+    - mysql-client
   when: ansible_os_family == 'Debian'
 
 - name: Enable remi CentOS key for newer PHP
@@ -31,6 +32,7 @@
     - php-pecl-memcache
     - php-mbstring
     - php-xml
+    - mysql-client
   when: ansible_os_family == 'RedHat'
 
 - name: Make sure php-fpm is running
