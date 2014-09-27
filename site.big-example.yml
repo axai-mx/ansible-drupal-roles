@@ -1,0 +1,56 @@
+---
+- name: Install MariaDB
+  hosts: db-server
+  user: root
+  remote_user: myuser
+  sudo: yes
+
+  vars:
+    mysql_root_password: 'my_secure_pass'
+    mysql_bind_address: private_mysql_server_ip
+    query_cache_limit: 4M
+    query_cache_size: 256M
+    key_buffer_size: 128M
+    long_query_time: 2
+    myisam_sort_buffer_size: 128M
+    innodb_buffer_pool_size: 24G
+    innodb_log_file_size: 512M
+
+    opcache_memory_consumption: 256
+
+    pm_max_children: 150
+    pm_start_servers: 100
+    pm_min_spare_servers: 100
+    pm_max_spare_servers: 200
+    pm_max_requests: 10000
+    dbs:
+      mydb:
+        dbuser: mydb
+        dbpass: mydb
+        dbhost: private_drupal_server_ip
+
+  roles:
+    - { role: common, tags: [common] }
+    - { role: mysql , tags: [mysql] }
+
+- name: Install Drupal and Drush with Nginx, and PHP-FPM
+  hosts: drupal-server
+  user: root
+  remote_user: myuser
+  sudo: yes
+
+  vars:
+    sites:
+      www.radec.com.mx:
+        git: "http://git.drupal.org/project/drupal.git"
+        version: master
+        default: yes
+        #host: git.drupal.org
+        #hostkey: "hostkey produced by ssh-keysan 'host'"
+
+  roles:
+    - { role: common, tags: [common] }
+    - { role: nginx, tags: [nginx] }
+    - { role: php-fpm, tags: [php-fpm] }
+    - { role: drush, tags: [drush] }
+    - { role: drupal, tags: [drupal] }
