@@ -3,29 +3,37 @@
 - Requires Ansible 1.6 or newer
 - Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
 
-If you need ssh agent forwarding with vagrant you can add
-`config.ssh.forward_agent = true` to your Vagrantfile.
-
 These playbooks deploy a simple all-in-one configuration of the popular
 Drupal software platform and CMS, frontend by the Nginx web server and the
 PHP-FPM process manager. To use, copy the `hosts.example` file to `hosts` and 
 edit the `hosts` inventory file to include the names or URLs of the servers
-you want to deploy.
+you want to deploy. Then copy and modify the site.example.yml or
+site.big-example.yml to site.yml.
 
 Then run the playbook, like this:
 
-	ansible-playbook -i hosts site.yml
+    ansible-playbook -i hosts site.yml
+
+If you want to use vagrant you can try our sample Vagrantfile just by installing
+vagrant and running:
+
+    vagrant up.
 
 The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
-is complete, you can hit access server to begin the Drupal configuration.
+is complete, you can access server (http://localhost:8080 on vagrant) to begin
+the Drupal configuration.
 
 ### Ideas for Improvement
 
 Here are some ideas for ways that these playbooks could be extended:
 
-- Separate the components (PHP-FPM, MySQL, Nginx) onto separate hosts and 
-hande the configuration appropriately.
-- Handle Drupal upgrades automatically.
+- define client_max_body_size variable on nginx.conf instead of on site.conf
+- create a solr role
+- add xhprof to the php role
+- enable apc for the cli (to prevent slowdowns on cron and drush jobs)
+- prepare syslog for the drupal watchdog
+- handle Drupal upgrades automatically.
+- support debian
 
 We would love to see contributions and improvements, so please fork this
 repository on GitHub and send us your changes via pull requests.
