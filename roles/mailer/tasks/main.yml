@@ -1,0 +1,13 @@
+---
+- group_by: key={{ ansible_os_family }}
+
+- name: Install postfix (Debian)
+  apt: name=postfix
+  when: ansible_os_family == 'Debian'
+
+- name: Install postfix (RedHat)
+  yum: name=postfix
+  when: ansible_os_family == 'RedHat'
+
+- name: Start postfix
+  service: name=postfix state=started enabled=true

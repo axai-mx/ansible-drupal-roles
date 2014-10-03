@@ -1,4 +1,6 @@
 ---
+- group_by: key={{ ansible_os_family }}
+
 - name: Install nginx on Ubuntu
   apt: name=nginx
   when: ansible_os_family == 'Debian'

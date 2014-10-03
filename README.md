@@ -46,3 +46,8 @@ The syslog module disables the watchdog (dblog) module and enables the syslog
 module for each of your sites. It depends on your sites already being installed.
 It will also configure syslog (`/etc/rsyslog.conf`) to log all drupal events
 to `/var/log/drupal.log`
+
+### mailer
+
+A role to allow the server to send emails. It uses postfix and the default
+distribution configuration.
