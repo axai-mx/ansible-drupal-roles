@@ -1,4 +1,4 @@
-## Drupal+Nginx+PHP-FPM Deployment
+# Drupal+Nginx+PHP-FPM Deployment
 
 - Requires Ansible 1.6 or newer
 - Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
@@ -23,7 +23,7 @@ The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
 is complete, you can access server (http://localhost:8080 on vagrant) to begin
 the Drupal configuration.
 
-### Ideas for Improvement
+## Ideas for Improvement
 
 Here are some ideas for ways that these playbooks could be extended:
 
@@ -34,6 +34,16 @@ Here are some ideas for ways that these playbooks could be extended:
 - prepare syslog for the drupal watchdog
 - handle Drupal upgrades automatically.
 - support debian
+- enable apc on cli also for ubuntu (we did it for /etc/php5/fpm/php.ini)
 
 We would love to see contributions and improvements, so please fork this
 repository on GitHub and send us your changes via pull requests.
+
+## Defined Roles
+
+### syslog
+
+The syslog module disables the watchdog (dblog) module and enables the syslog
+module for each of your sites. It depends on your sites already being installed.
+It will also configure syslog (`/etc/rsyslog.conf`) to log all drupal events
+to `/var/log/drupal.log`

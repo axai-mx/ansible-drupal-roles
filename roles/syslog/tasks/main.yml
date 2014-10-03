@@ -1,0 +1,22 @@
+---
+- group_by: key={{ ansible_os_family }}
+
+- name: Make sure we catch syslog messages for drupal on our own file
+  lineinfile: dest=/etc/rsyslog.conf regexp=drupal.log line="local1.* /var/log/drupal.log"
+  notify: restart syslog
+
+- name: Configure syslog facility (136 = LOG_LOCAL1)
+  shell: /usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal vset syslog_facility 136
+  with_dict: sites
+
+- name: Configure syslog identity
+  shell: /usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal vset syslog_identity "drupal_{{ item.key }}"
+  with_dict: sites
+
+- name: Enable syslog drupal module
+  shell: /usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal en -y syslog
+  with_dict: sites
+
+- name: Disable watchdog drupal module
+  shell: /usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal dis -y dblog
+  with_dict: sites
