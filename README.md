@@ -31,7 +31,6 @@ Here are some ideas for ways that these playbooks could be extended:
 - create a solr role
 - add xhprof to the php role
 - enable apc for the cli (to prevent slowdowns on cron and drush jobs)
-- prepare syslog for the drupal watchdog
 - handle Drupal upgrades automatically.
 - support debian
 - enable apc on cli also for ubuntu (we did it for /etc/php5/fpm/php.ini)
