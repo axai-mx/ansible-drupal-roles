@@ -37,7 +37,7 @@
 
     fastcgi_buffers: 64
 
-    pm_max_children: 150
+    pm_max_children: 200
     pm_start_servers: 100
     pm_min_spare_servers: 100
     pm_max_spare_servers: 200
