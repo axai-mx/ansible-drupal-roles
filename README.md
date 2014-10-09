@@ -32,7 +32,7 @@ Here are some ideas for ways that these playbooks could be extended:
 - add xhprof to the php role
 - enable apc for the cli (to prevent slowdowns on cron and drush jobs)
 - handle Drupal upgrades automatically.
-- support debian
+- test debian support
 - enable apc on cli also for ubuntu (we did it for /etc/php5/fpm/php.ini)
 
 We would love to see contributions and improvements, so please fork this

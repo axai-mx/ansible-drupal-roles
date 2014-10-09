@@ -34,6 +34,9 @@ innodb_log_file_size: 50M
 ##################################
 # should be also the size of upload_max_filesize and post_max_size php.ini vars
 client_max_body_size: 64M
+# Default is 8. When responses are big you could set to 64
+# Guide to set number: https://gist.github.com/magnetikonline/11312172
+fastcgi_buffers: 8
 
 ##################################
 # PHP
