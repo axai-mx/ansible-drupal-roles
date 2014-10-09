@@ -1,7 +1,7 @@
 ---
 - group_by: key={{ ansible_os_family }}
 
-- name: Install Common packages
+- name: Install Common packages (Ubuntu)
   apt: name={{ item }}
   with_items:
     - fish
@@ -14,7 +14,7 @@
     - vim
   when: ansible_os_family == 'Debian'
 
-- name: Install Common packages
+- name: Install Common packages (CentOS)
   yum: name={{ item }}
   with_items:
     - epel-release
@@ -30,7 +30,7 @@
     - libsemanage-python
   when: ansible_os_family == 'RedHat'
 
-- name: Install fish
+- name: Install fish (CentOS)
   yum: name=http://fishshell.com/files/2.1.0/linux/RedHat_RHEL-6/fish-2.1.0-2.1.x86_64.rpm
   when: ansible_os_family == 'RedHat'
 
