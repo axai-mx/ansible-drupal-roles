@@ -46,6 +46,8 @@ php_memory_limit: 256M
 # used to be apc_shm_size, MB is implied
 opcache_memory_consumption: 128
 date_timezone: "America/Mexico_City"
+# default is 1000
+max_input_vars: 1000
 
 ##################################
 # PHP-FPM config
