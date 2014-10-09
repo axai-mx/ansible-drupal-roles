@@ -16,13 +16,6 @@
     innodb_buffer_pool_size: 24G
     innodb_log_file_size: 512M
 
-    opcache_memory_consumption: 256
-
-    pm_max_children: 150
-    pm_start_servers: 100
-    pm_min_spare_servers: 100
-    pm_max_spare_servers: 200
-    pm_max_requests: 10000
     dbs:
       mydb:
         dbuser: mydb
@@ -40,6 +33,16 @@
   sudo: yes
 
   vars:
+    opcache_memory_consumption: 256
+
+    fastcgi_buffers: 64
+
+    pm_max_children: 150
+    pm_start_servers: 100
+    pm_min_spare_servers: 100
+    pm_max_spare_servers: 200
+    pm_max_requests: 10000
+
     sites:
       www.radec.com.mx:
         git: "http://git.drupal.org/project/drupal.git"
@@ -50,7 +53,9 @@
 
   roles:
     - { role: common, tags: [common] }
+    - { role: mailer, tags: [mailer] }
     - { role: nginx, tags: [nginx] }
     - { role: php-fpm, tags: [php-fpm] }
     - { role: drush, tags: [drush] }
     - { role: drupal, tags: [drupal] }
+    - { role: syslog, tags: [syslog] }
