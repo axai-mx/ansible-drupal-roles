@@ -23,17 +23,15 @@ The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
 is complete, you can access server (http://localhost:8080 on vagrant) to begin
 the Drupal configuration.
 
-## Ideas for Improvement
+## TODO
 
 Here are some ideas for ways that these playbooks could be extended:
 
-- define client_max_body_size variable on nginx.conf instead of on site.conf
-- create a solr role
+- enable apcu for the cli (to prevent slowdowns on cron and drush jobs, we are
+  only doing it for fpm on ubuntu)
 - add xhprof to the php role
-- enable apc for the cli (to prevent slowdowns on cron and drush jobs)
-- handle Drupal upgrades automatically.
 - test debian support
-- enable apc on cli also for ubuntu (we did it for /etc/php5/fpm/php.ini)
+- handle Drupal upgrades automatically.
 
 We would love to see contributions and improvements, so please fork this
 repository on GitHub and send us your changes via pull requests.
