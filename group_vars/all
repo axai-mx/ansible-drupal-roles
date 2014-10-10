@@ -67,3 +67,9 @@ pm_start_servers: 20
 pm_min_spare_servers: 20
 pm_max_spare_servers: 20
 pm_max_requests: 500
+
+##################################
+# Solr
+##################################
+# For small server 250m for bigger?
+solr_memory: 250m

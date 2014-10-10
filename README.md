@@ -51,3 +51,10 @@ to `/var/log/drupal.log`
 
 A role to allow the server to send emails. It uses postfix and the default
 distribution configuration.
+
+### solr
+
+A role to run solr using the provided jetty example, which is the recommended 
+method instead of using tomcat or full jetty.
+
+http://lucene.472066.n3.nabble.com/difference-between-apache-tomcat-vs-Jetty-td4096680.html

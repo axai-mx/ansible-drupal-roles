@@ -1,0 +1,45 @@
+---
+- group_by: key={{ ansible_os_family }}
+
+- name: Ensure Java is installed (RedHat).
+  yum: name=java-1.7.0-openjdk state=installed
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure Java is installed (Debian).
+  apt: name=openjdk-7-jdk state=installed
+  when: ansible_os_family == 'Debian'
+
+- name: Get Solr 4.x
+  get_url: url=http://mirror.olnevhost.net/pub/apache/lucene/solr/4.10.1/solr-4.10.1.tgz dest=/opt/solr-4.10.1.tgz
+
+- name: Expand Solr.
+  command: >
+    tar -C /opt -xvzf /opt/solr-4.10.1.tgz
+    creates=/opt/solr-4.10.1/dist/solr-4.10.1.war
+
+- name: Create symlink to solr
+  file: state=link src=/opt/solr-4.10.1 dest=/opt/solr
+
+- name: Get drupal solr configuration (search_api & apachesolr)
+  get_url: >
+    url=http://cgit.drupalcode.org/search_api_solr/plain/solr-conf/4.x/{{ item }}
+    dest=/opt/solr/example/solr/collection1/conf/
+  with_items:
+    - elevate.xml
+    - protwords.txt
+    - schema.xml
+    - schema_extra_fields.xml
+    - schema_extra_types.xml
+    - solrconfig.xml
+    - solrconfig_extra.xml
+    - solrcore.properties
+  notify: 
+    - solr restart
+
+- name: Startup script
+  template: > 
+    src=solr.j2 dest=/etc/init.d/solr
+    owner=root group=root mode=744
+
+- name: Ensure solr is started and enabled to start at boot.
+  service: name=solr state=started enabled=yes
