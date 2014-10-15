@@ -15,6 +15,23 @@
 
 - name: Clone drupal.conf from repository
   git: repo=https://github.com/axai-mx/simple-drupal-nginx.git dest=/etc/nginx/simple-drupal-nginx/
+  notify: restart nginx
+
+- name: Set worker processes for nginx
+  lineinfile: dest=/etc/nginx/nginx.conf regexp='worker_processes' line='worker_processes auto;'
+  notify: restart nginx
+
+- name: Enable gzip
+  lineinfile: dest=/etc/nginx/nginx.conf regexp='gzip\s+on' line='  gzip on;'
+  notify: restart nginx
+
+- name: Disable gzip for IE6
+  lineinfile: dest=/etc/nginx/nginx.conf regexp='gzip_disable' insertafter='gzip on' line='  gzip_disable "msie6";'
+  notify: restart nginx
+
+- name: Enable gzip only for text files
+  lineinfile: dest=/etc/nginx/nginx.conf regexp='gzip_types' insertafter='gzip on' line='  gzip_types application/atom+xml application/javascript application/json application/rss+xml application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/svg+xml image/x-icon text/css text/plain text/x-component;'
+  notify: restart nginx
 
 - name: Ensure nginx is started and enabled to start at boot.
   service: name=nginx state=started enabled=yes
