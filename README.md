@@ -27,6 +27,11 @@ the Drupal configuration.
 
 Here are some ideas for ways that these playbooks could be extended:
 
+- Use our own nginx.conf based on (epoll, multi_accept, file_cache):
+  - http://www.slashroot.in/nginx-web-server-performance-tuning-how-to-do-it
+  - http://www.codestance.com/tutorials-archive/nginx-tuning-for-best-performance-255
+  - https://github.com/h5bp/server-configs-nginx/blob/master/nginx.conf
+  - https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration
 - enable apcu for the cli (to prevent slowdowns on cron and drush jobs, we are
   only doing it for fpm on ubuntu)
 - add xhprof to the php role
