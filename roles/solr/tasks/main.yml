@@ -40,6 +40,8 @@
   template: > 
     src=solr.j2 dest=/etc/init.d/solr
     owner=root group=root mode=744
+  notify: 
+    - solr restart
 
 - name: Ensure solr is started and enabled to start at boot.
   service: name=solr state=started enabled=yes
