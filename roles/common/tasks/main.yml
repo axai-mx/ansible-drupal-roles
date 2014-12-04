@@ -1,6 +1,10 @@
 ---
 - group_by: key={{ ansible_os_family }}
 
+- name: Run apt-get update (Ubuntu)
+  apt: update_cache=yes
+  when: ansible_os_family == 'Debian'
+
 - name: Install Common packages (Ubuntu)
   apt: name={{ item }}
   with_items:
@@ -12,6 +16,7 @@
     - fail2ban
     - curl
     - vim
+    - byobu
   when: ansible_os_family == 'Debian'
 
 - name: Install Common packages (CentOS)
