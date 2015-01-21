@@ -1,0 +1,34 @@
+---
+- name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
+  hosts: drupal-server
+  connection: local
+  user: root
+  remote_user: jackbravo
+  sudo: yes
+
+  vars:
+    sites:
+      drupal8.axai.org:
+        git: "http://git.drupal.org/project/drupal.git"
+        version: 8.0.x
+        # use this if the site has aliases (so we can redirect)
+        #aliases: ["www.drupal8.axai.org"]
+        # use this if you want this to be the default_server in nginx
+        #default: yes
+        # use this if cloning using ssh
+        #host: git.drupal.org
+        #hostkey: "hostkey produced by ssh-keysan 'host'"
+    dbs:
+      drupal8:
+        dbuser: drupal8
+        dbpass: test
+        dbhost: localhost
+
+  roles:
+    - { role: common, tags: [common] }
+    - { role: mysql , tags: [mysql] }
+    - { role: nginx, tags: [nginx] }
+    - { role: php-fpm, tags: [php-fpm] }
+    - { role: drush, tags: [drush] }
+    - { role: drupal, tags: [drupal] }
+    - { role: syslog, tags: [syslog] }
