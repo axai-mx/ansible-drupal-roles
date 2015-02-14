@@ -6,8 +6,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "private_network", ip: "192.168.33.10"
-
+# nginx config is set to allow range 192.168.0.0/16
+  config.vm.network "private_network", ip: "192.168.0.8"
+ 
   config.vm.provider "virtualbox" do |vb|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "1024"]

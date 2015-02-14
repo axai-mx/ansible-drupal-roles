@@ -3,12 +3,9 @@
 - Requires Ansible 1.6 or newer
 - Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
 
-These playbooks deploy a simple all-in-one configuration of the popular
-Drupal software platform and CMS, frontend by the Nginx web server and the
-PHP-FPM process manager. To use, copy the `hosts.example` file to `hosts` and 
-edit the `hosts` inventory file to include the names or URLs of the servers
-you want to deploy. Then copy and modify the site.example.yml or
-site.big-example.yml to site.yml.
+These playbooks (found in samples_yml) deploy a simple all-in-one configuration of the popular Drupal software platform and CMS, frontend by the Nginx web server and the PHP-FPM process manager. To use copy and modify sample_yml/site.example.yml or sample_yml/site.big-example.yml to ./site.yml in the root directory. 
+
+At this time the VM will come up with the IP of 192.168.0.8. Our road map will parameterize this and other values for greater flexibility.
 
 Then run the playbook, like this:
 
