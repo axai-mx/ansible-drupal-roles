@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.network "forwarded_port", guest: 80, host: 8080
 
 # set this up if you need your ssh key to clone a git repo
-  #config.ssh.forward_agent = true
+  config.ssh.forward_agent = true
 
 # set up sync folder (you need to install nfs on linux, mac already has it)
 # on ubuntu the package is nfs-kernel-server
