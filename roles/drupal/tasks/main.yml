@@ -5,9 +5,10 @@
   user: name={{ ansible_ssh_user }} groups=users,{{ www_user }} append=yes
   when: ansible_ssh_user != 'root'
   
-- name: make sure the vhosts directory exists
+- name: make sure the vhosts directory exists (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 owner={{ ansible_ssh_user }} group=users
   with_dict: sites
+  ignore_errors: true
 
 - name: If cloning with ssh, make sure the key exists in known_hosts file
   lineinfile: dest=~/.ssh/known_hosts regexp=^{{ item.value.host }} line="{{ item.value.hostkey }}" mode=0600 create=yes
@@ -20,13 +21,15 @@
   with_dict: sites
   sudo: no
 
-- name: Create files folder
+- name: Create files folder (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
+  ignore_errors: true
 
-- name: Create cache folder (boost)
+- name: Create cache folder (boost) (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
   with_dict: sites
+  ignore_errors: true
 
 - name: Copy default.settings.php file
   shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chown {{ ansible_ssh_user }}:{{ www_user }} /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
