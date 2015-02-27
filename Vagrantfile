@@ -8,6 +8,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 # nginx config is set to allow range 192.168.0.0/16
   config.vm.network "private_network", ip: "192.168.0.8"
+  #config.vm.network "forwarded_port", guest: 80, host: 8080
+  #config.ssh.forward_agent = true
  
   config.vm.provider "virtualbox" do |vb|
     # Use VBoxManage to customize the VM. For example to change memory:
