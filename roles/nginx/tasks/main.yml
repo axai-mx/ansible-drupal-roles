@@ -21,6 +21,11 @@
   lineinfile: dest=/etc/nginx/nginx.conf regexp='worker_processes' line='worker_processes auto;'
   notify: restart nginx
 
+- name: Remove default_server to allow our own
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: restart nginx
+  when: ansible_os_family == 'Debian'
+
 - name: Enable gzip
   lineinfile: dest=/etc/nginx/nginx.conf regexp='gzip\s+on' line='  gzip on;'
   notify: restart nginx
