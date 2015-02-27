@@ -12,6 +12,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 # set this up if you need your ssh key to clone a git repo
   #config.ssh.forward_agent = true
+
+# set up sync folder (you need to install nfs on linux, mac already has it)
+# on ubuntu the package is nfs-kernel-server
+# windows does not support nfs, you'll need to remove this type
+  config.vm.synced_folder "www/", "/var/www", type: "nfs"
  
   config.vm.provider "virtualbox" do |vb|
     # Use VBoxManage to customize the VM. For example to change memory:
