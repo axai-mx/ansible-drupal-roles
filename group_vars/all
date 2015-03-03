@@ -71,5 +71,5 @@ pm_max_requests: 500
 ##################################
 # Solr
 ##################################
-# For small server 250m for bigger?
-solr_memory: 250m
+# For small server 128m for bigger?
+solr_memory: 128m
