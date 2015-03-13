@@ -17,6 +17,7 @@
     - curl
     - vim
     - byobu
+    - multitail
   when: ansible_os_family == 'Debian'
 
 - name: Install Common packages (CentOS)
@@ -31,6 +32,7 @@
     - curl
     - vim
     - byobu
+    - multitail
     - libselinux-python
     - libsemanage-python
   when: ansible_os_family == 'RedHat'
