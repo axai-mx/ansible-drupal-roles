@@ -15,6 +15,11 @@
     - mariadb-client
   when: ansible_os_family == 'Debian'
 
+- name: Enable mcrypt (Ubuntu)
+  command: "php5enmod mcrypt"
+  notify: restart php-fpm
+  when: ansible_os_family == 'Debian'
+
 - name: Enable remi CentOS key for newer PHP
   rpm_key: key=http://rpms.famillecollet.com/RPM-GPG-KEY-remi
   when: ansible_os_family == 'RedHat'
