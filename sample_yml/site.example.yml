@@ -10,6 +10,8 @@
       drupal8.axai.org:
         git: "http://git.drupal.org/project/drupal.git"
         version: 8.0.x
+        # use ssl
+        #ssl: yes
         # use this if the site has aliases (so we can redirect)
         #aliases: ["www.drupal8.axai.org"]
         # use this if you want this to be the default_server in nginx

@@ -42,7 +42,40 @@
   with_dict: sites
   ignore_errors: true
 
-- name: Create sites configurations
+- name: Create nginx-ssl.conf
+  template: src=nginx-ssl.conf dest=/etc/nginx/nginx-ssl.conf
+
+- name: make sure the nginx ssl directory exists
+  file: path=/etc/nginx/ssl state=directory
+
+- name: Create a new private key
+  shell: umask 077 && openssl genrsa -out /etc/nginx/ssl/ssl_private_key.pem 2048
+    creates=/etc/nginx/ssl/ssl_private_key.pem
+
+- name: Generate Diffie-Hellman cipher bits used for Perfect Forward Secrecy
+  shell: umask 077 && openssl dhparam -out /etc/nginx/ssl/dh2048.pem 2048
+    creates=/etc/nginx/ssl/dh2048.pem
+
+- name: Create a certificate signing request
+  shell: umask 007 && openssl req -new -key /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.csr -sha256 -subj "/C=/ST=/L=/O=/CN={{ item.key }}"
+    creates=/etc/nginx/ssl/{{ item.key }}.csr
+  with_dict: sites
+  when: item.value.ssl is defined
+
+- name: Create a SSL certificate by self-signing
+  shell: umask 007 && openssl x509 -req -days 365 -in /etc/nginx/ssl/{{ item.key }}.csr -signkey /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.pem
+    creates=/etc/nginx/ssl/{{ item.key }}.pem
+  with_dict: sites
+  when: item.value.ssl is defined
+
+- name: Create sites configurations (ssl)
+  template: src=ssl.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
+  with_dict: sites
+  notify: restart nginx
+  when: item.value.ssl is defined
+
+- name: Create sites configurations (non ssl)
   template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: sites
   notify: restart nginx
+  when: item.value.ssl is not defined
