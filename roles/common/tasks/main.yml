@@ -45,8 +45,8 @@
   user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
 
 - name: set up .vimrc for root
-  get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/7278d317e82ce55bbe676bf8f891a30af524b9b6/.vimrc dest=/root/.vimrc
+  get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/.vimrc dest=/root/.vimrc
 
 - name: set up .vimrc for user
-  get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/7278d317e82ce55bbe676bf8f891a30af524b9b6/.vimrc dest=~/.vimrc
+  get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/.vimrc dest=~/.vimrc
   sudo: no
