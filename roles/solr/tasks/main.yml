@@ -10,15 +10,15 @@
   when: ansible_os_family == 'Debian'
 
 - name: Get Solr 4.x
-  get_url: url=http://mirrors.advancedhosters.com/apache/lucene/solr/4.10.2/solr-4.10.2.tgz dest=/opt/solr-4.10.2.tgz
+  get_url: url=http://mirrors.advancedhosters.com/apache/lucene/solr/4.10.4/solr-4.10.4.tgz dest=/opt/solr-4.10.4.tgz
 
 - name: Expand Solr.
   command: >
-    tar -C /opt -xvzf /opt/solr-4.10.2.tgz
-    creates=/opt/solr-4.10.2/dist/solr-4.10.2.war
+    tar -C /opt -xvzf /opt/solr-4.10.4.tgz
+    creates=/opt/solr-4.10.4/dist/solr-4.10.4.war
 
 - name: Create symlink to solr
-  file: state=link src=/opt/solr-4.10.2 dest=/opt/solr
+  file: state=link src=/opt/solr-4.10.4 dest=/opt/solr
 
 - name: Get drupal solr configuration (search_api & apachesolr)
   get_url: >
