@@ -20,3 +20,6 @@
 - name: Disable watchdog drupal module
   shell: /usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal dis -y dblog
   with_dict: sites
+
+- name: Configure logrotate for drupal.log
+  template: src=drupal.j2 dest=/etc/logrotate.d/drupal
