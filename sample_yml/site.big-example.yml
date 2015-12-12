@@ -48,8 +48,6 @@
         git: "http://git.drupal.org/project/drupal.git"
         version: master
         default: yes
-        #host: git.drupal.org
-        #hostkey: "hostkey produced by ssh-keysan 'host'"
 
   roles:
     - { role: common, tags: [common] }
