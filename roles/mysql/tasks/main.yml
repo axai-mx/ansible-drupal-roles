@@ -73,16 +73,20 @@
   mysql_user: >
     name=""
     state=absent
+    login_user=root
+    login_password="{{ mysql_root_password }}"
 
 - name: Remove the MySQL test database.
   mysql_db: >
     name="test"
     state=absent
+    login_user=root
+    login_password="{{ mysql_root_password }}"
 
 - name: Create database
-  mysql_db: name={{ item.key }} state=present
+  mysql_db: name={{ item.key }} state=present login_password="{{ mysql_root_password }}" login_user=root
   with_dict: dbs
 
 - name: Create database user
-  mysql_user: name={{ item.value.dbuser }} password={{ item.value.dbpass }} priv={{ item.key }}.*:ALL host={{ item.value.dbhost }} state=present append_privs=yes
+  mysql_user: name={{ item.value.dbuser }} password="{{ item.value.dbpass }}" priv={{ item.key }}.*:ALL host={{ item.value.dbhost }} state=present append_privs=yes login_password="{{ mysql_root_password }}" login_user=root
   with_dict: dbs
