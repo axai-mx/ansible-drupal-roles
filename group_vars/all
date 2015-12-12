@@ -56,11 +56,11 @@ max_input_vars: 1000
 # PHP-FPM config
 ##################################
 # recommended for 16GB VPS (not tested yet)
-#pm_max_children: 150
+#pm_max_children: 300
 #pm_start_servers: 100
-#pm_min_spare_servers: 100
-#pm_max_spare_servers: 200
-#pm_max_requests: 10000
+#pm_min_spare_servers: 50
+#pm_max_spare_servers: 100
+#pm_max_requests: 1000
 
 # recommended for 2 GB VPS
 # If we receive more than {{ max_children }} logged in users with long requests,
