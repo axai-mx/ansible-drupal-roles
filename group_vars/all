@@ -70,6 +70,7 @@ pm_start_servers: 20
 pm_min_spare_servers: 20
 pm_max_spare_servers: 20
 pm_max_requests: 500
+pm_status_path: php-fpm-status.php
 
 ##################################
 # Solr
