@@ -16,6 +16,7 @@
     - fail2ban
     - curl
     - vim
+    - emacs24-nox
     - byobu
     - multitail
   when: ansible_os_family == 'Debian'
