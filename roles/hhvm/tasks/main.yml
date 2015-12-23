@@ -1,0 +1,29 @@
+---
+- group_by: key={{ ansible_os_family }}
+
+- name: Add HHVM repo key
+  apt_key: keyserver=keyserver.ubuntu.com id=0x5a16e7281be7a449
+
+- name: Add HHVM repo
+  apt_repository: repo='deb http://dl.hhvm.com/ubuntu trusty main'
+
+- name: Update apt
+  apt: update_cache=yes
+
+- name: Install HHVM and php5-cli (for command-line php)
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - hhvm
+    - php5-cli
+    - php5-gd
+    - php5-mysqlnd
+    - php5-mcrypt
+    - php5-memcache
+    - php5-curl
+    - mariadb-client
+
+- name: Enable mcrypt
+  command: "php5enmod mcrypt"
+
+- name: restart hhvm
+  service: name=hhvm enabled=yes state=restarted
