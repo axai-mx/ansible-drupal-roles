@@ -38,6 +38,11 @@ repository on GitHub and send us your changes via pull requests.
 
 ## Other Defined Roles
 
+### hhvm
+
+HHVM serves as a replacement for php-fpm role. It is already configured as a fastcgi
+server.
+
 ### syslog
 
 The syslog module disables the watchdog (dblog) module and enables the syslog
