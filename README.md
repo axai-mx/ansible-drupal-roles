@@ -29,8 +29,6 @@ Here are some ideas for ways that these playbooks could be extended:
   - http://www.codestance.com/tutorials-archive/nginx-tuning-for-best-performance-255
   - https://github.com/h5bp/server-configs-nginx/blob/master/nginx.conf
   - https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration
-- enable apcu for the cli (to prevent slowdowns on cron and drush jobs, we are
-  only doing it for fpm on ubuntu)
 - add xhprof to the php role
 - test debian support
 - handle Drupal upgrades automatically.
@@ -38,7 +36,7 @@ Here are some ideas for ways that these playbooks could be extended:
 We would love to see contributions and improvements, so please fork this
 repository on GitHub and send us your changes via pull requests.
 
-## Defined Roles
+## Other Defined Roles
 
 ### syslog
 
