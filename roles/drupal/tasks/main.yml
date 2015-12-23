@@ -36,6 +36,9 @@
   with_dict: sites
   ignore_errors: true
 
+- name: Create nginx configuration file for drupal sites
+  template: src=drupal.conf dest=/etc/nginx/drupal.conf
+
 - name: Create nginx-ssl.conf
   template: src=nginx-ssl.conf dest=/etc/nginx/nginx-ssl.conf
 
