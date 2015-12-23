@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/trusty32"
+  config.vm.box = "ubuntu/trusty64"
 # nginx config is set to allow range 192.168.0.0/16
   config.vm.network "private_network", ip: "192.192.0.8"
   #config.vm.network "forwarded_port", guest: 80, host: 8080
