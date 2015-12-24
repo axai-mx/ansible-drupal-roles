@@ -38,10 +38,15 @@ repository on GitHub and send us your changes via pull requests.
 
 ## Other Defined Roles
 
+### php7-fpm
+
+PHP 7 for ubuntu 14.04.
+
 ### hhvm
 
-HHVM serves as a replacement for php-fpm role. It is already configured as a fastcgi
-server. HHVM is only compiled for 64bit machines.
+HHVM serves as a replacement for php-fpm role. It is already configured as a
+fastcgi server. HHVM is only compiled for 64bit machines and right now this role
+is only for ubuntu 14.04.
 
 ### syslog
 
