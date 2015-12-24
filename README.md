@@ -41,7 +41,7 @@ repository on GitHub and send us your changes via pull requests.
 ### hhvm
 
 HHVM serves as a replacement for php-fpm role. It is already configured as a fastcgi
-server.
+server. HHVM is only compiled for 64bit machines.
 
 ### syslog
 
