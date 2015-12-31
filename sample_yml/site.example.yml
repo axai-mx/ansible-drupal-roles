@@ -24,10 +24,12 @@
 
   roles:
     - { role: common, tags: [common] }
-    - { role: mailer, tags: [mailer] }
+    #- { role: mailer, tags: [mailer] }
     - { role: mysql , tags: [mysql] }
+    #- { role: solr , tags: [solr] }
     - { role: nginx, tags: [nginx] }
     - { role: php-fpm, tags: [php-fpm] }
+    #- { role: php7-fpm, tags: [php7-fpm] }
     - { role: drush, tags: [drush] }
     - { role: drupal, tags: [drupal] }
  
