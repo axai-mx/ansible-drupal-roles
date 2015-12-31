@@ -16,7 +16,6 @@
         #aliases: ["www.drupal8.axai.org"]
         # use this if you want this to be the default_server in nginx
         #default: yes
-        # use this if cloning using ssh
     dbs:
       drupal8:
         dbuser: drupal8

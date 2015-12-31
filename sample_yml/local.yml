@@ -15,9 +15,6 @@
         #aliases: ["www.drupal8.axai.org"]
         # use this if you want this to be the default_server in nginx
         #default: yes
-        # use this if cloning using ssh
-        #host: git.drupal.org
-        #hostkey: "hostkey produced by ssh-keysan 'host'"
     dbs:
       drupal8:
         dbuser: drupal8

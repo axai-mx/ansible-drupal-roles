@@ -2,23 +2,30 @@
 
 - Requires Ansible 1.6 or newer
 - Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
+- If using vagrant with ubuntu you need to `apt-get install nfs-kernel-server`
 
-These playbooks (found in samples_yml) deploy a simple all-in-one configuration of the popular Drupal software platform and CMS, frontend by the Nginx web server and the PHP-FPM process manager. To use copy and modify sample_yml/site.example.yml or sample_yml/site.big-example.yml to ./site.yml in the root directory. 
+These playbooks (found in sample_yml) deploy a simple all-in-one configuration
+of the popular Drupal software platform and CMS, frontend by the Nginx web server
+and the PHP-FPM process manager. To use with vagrant:
 
-At this time the VM will come up with the IP of 192.192.0.8. Our road map will parameterize this and other values for greater flexibility.
+    cp sample_yml/site.example.yml site.yml
+    edit site.yml
+    vagrant up
 
-Then run the playbook, like this:
+At this time the VM will come up with the IP of 192.192.0.8. Our road map will
+parameterize this and other values for greater flexibility.
+
+The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
+is complete, you can access server (http://192.192.0.8/) to begin the Drupal
+configuration.
+
+Then run the playbook with a remote server instead of a vagrant VM you need to
+create a `hosts` file and a `site.yml` file and then run the `ansible-playbook`
+command, like this:
 
     ansible-playbook -i hosts site.yml
 
-If you want to use vagrant you can try our sample Vagrantfile just by installing
-vagrant, **nfs-kernel-server** and running:
-
-    vagrant up
-
-The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
-is complete, you can access server (http://localhost:8080 on vagrant) to begin
-the Drupal configuration.
+There are example hosts and site.yml files in the sample_yml folder.
 
 ## TODO
 
