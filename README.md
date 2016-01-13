@@ -1,6 +1,6 @@
 # Drupal+Nginx+PHP-FPM Deployment
 
-- Requires Ansible 1.6 or newer
+- Requires Ansible 1.8 or newer
 - Expects Ubuntu 14.04 or CentOS/RedHat 6.5 hosts
 - If using vagrant with ubuntu you need to `apt-get install nfs-kernel-server`
 
@@ -8,6 +8,7 @@ These playbooks (found in sample_yml) deploy a simple all-in-one configuration
 of the popular Drupal software platform and CMS, frontend by the Nginx web server
 and the PHP-FPM process manager. To use with vagrant:
 
+    sudo ansible-galaxy install -r provisioning/requirements.yml
     cp sample_yml/site.example.yml site.yml
     edit site.yml
     vagrant up
