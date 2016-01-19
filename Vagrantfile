@@ -4,23 +4,31 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+# Use config.yml for basic VM configuration.
+require 'yaml'
+dir = File.dirname(File.expand_path(__FILE__))
+if !File.exist?("#{dir}/site.yml")
+  raise 'Configuration file not found! Please copy sample_yaml/example.site.yml to site.yml and try again.'
+end
+vconfig = YAML::load_file("#{dir}/site.yml")[0]['vars']
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
-# nginx config is set to allow range 192.168.0.0/16
-  config.vm.network "private_network", ip: "192.192.0.8"
-  #config.vm.network "forwarded_port", guest: 80, host: 8080
 
-# set this up if you need your ssh key to clone a git repo
+  # Networking configuration.
+  config.vm.hostname = vconfig['vagrant_hostname']
+  if vconfig['vagrant_ip'] == "0.0.0.0" && Vagrant.has_plugin?("vagrant-auto_network")
+    config.vm.network :private_network, :ip => vconfig['vagrant_ip'], :auto_network => true
+  else
+    config.vm.network :private_network, ip: vconfig['vagrant_ip']
+  end
+
   config.ssh.forward_agent = true
 
-# set up sync folder (you need to install nfs on linux, mac already has it)
-# on ubuntu the package is nfs-kernel-server
-# windows does not support nfs, you'll need to remove this type
   config.vm.synced_folder "www/", "/var/www", type: "nfs"
- 
+
   config.vm.provider "virtualbox" do |vb|
-    # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.memory = vconfig['vagrant_memory']
   end
 
   config.vm.provision "ansible" do |ansible|

@@ -13,11 +13,8 @@ and the PHP-FPM process manager. To use with vagrant:
     edit site.yml
     vagrant up
 
-At this time the VM will come up with the IP of 192.192.0.8. Our road map will
-parameterize this and other values for greater flexibility.
-
 The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
-is complete, you can access server (http://192.192.0.8/) to begin the Drupal
+is complete, you can access server (http://192.168.88.88/) to begin the Drupal
 configuration.
 
 Then run the playbook with a remote server instead of a vagrant VM you need to
