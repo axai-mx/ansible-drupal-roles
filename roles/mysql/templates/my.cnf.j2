@@ -48,7 +48,7 @@ bind-address		= {{ mysql_bind_address }}
 #
 # * Fine Tuning
 #
-max_connections		=  151
+max_connections		=  {{ mysql_max_connections }}
 connect_timeout		=  5
 wait_timeout		=  600
 max_allowed_packet	= 32M
