@@ -42,9 +42,6 @@
   yum: name=http://fishshell.com/files/2.1.0/linux/RedHat_RHEL-6/fish-2.1.0-2.1.x86_64.rpm
   when: ansible_os_family == 'RedHat'
 
-- name: set the shell as fish for user
-  user: name={{ ansible_ssh_user }} shell=/usr/bin/fish
-
 - name: set up .vimrc for root
   get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/.vimrc dest=/root/.vimrc
 
