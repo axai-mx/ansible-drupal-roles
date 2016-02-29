@@ -1,7 +1,6 @@
 ---
 - name: Install MariaDB
   hosts: db-server
-  user: root
   remote_user: myuser
   sudo: yes
 

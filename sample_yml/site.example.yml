@@ -1,7 +1,6 @@
 ---
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
   hosts: all
-  user: root
   remote_user: vagrant
   sudo: yes
 

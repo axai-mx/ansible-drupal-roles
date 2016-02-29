@@ -2,7 +2,6 @@
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
   hosts: drupal-server
   connection: local
-  user: root
   remote_user: jackbravo
   sudo: yes
 
