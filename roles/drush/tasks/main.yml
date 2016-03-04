@@ -6,5 +6,5 @@
 
 - name: Install Drupal Console
   shell:
-    curl http://drupalconsole.com/installer -L -o drupal.phar && mv drupal.phar /usr/local/bin/drupal
+    curl http://drupalconsole.com/installer -L -o drupal.phar && chmod +x drupal.phar && mv drupal.phar /usr/local/bin/drupal
     creates=/usr/local/bin/drupal
