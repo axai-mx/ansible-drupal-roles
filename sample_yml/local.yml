@@ -24,7 +24,7 @@
     - { role: common, tags: [common] }
     - { role: mysql , tags: [mysql] }
     - { role: nginx, tags: [nginx] }
-    - { role: php-fpm, tags: [php-fpm] }
+    - { role: php7-fpm, tags: [php7-fpm] }
     - { role: drush, tags: [drush] }
     - { role: drupal, tags: [drupal] }
-    - { role: syslog, tags: [syslog] }
+    #- { role: syslog, tags: [syslog] }
