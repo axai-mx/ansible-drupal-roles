@@ -3,15 +3,7 @@
 
 ### Install MySQL Ubuntu {
 
-- name: Add MariaDB key (Ubuntu)
-  apt_key: id=0xcbcb082a1bb943db keyserver=hkp://keyserver.ubuntu.com:80
-  when: ansible_os_family == 'Debian'
-
-- name: Add MariaDB 10.0 repository (Ubuntu)
-  apt_repository: repo='deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main' state=present
-  when: ansible_os_family == 'Debian'
-
-- name: Install MariaDB 10.0 (Ubuntu)
+- name: Install MariaDB (Ubuntu)
   apt: name={{ item }}
   with_items:
     - mariadb-server
@@ -32,7 +24,7 @@
   rpm_key: key=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
   when: ansible_os_family == 'RedHat'
 
-- name: Install MariaDB 10.0 (CentOS)
+- name: Install MariaDB (CentOS)
   yum: name={{ item }}
   with_items:
     - MariaDB-server
