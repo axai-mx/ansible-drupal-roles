@@ -15,7 +15,8 @@ and the PHP-FPM process manager. To use with vagrant:
 
 The playbooks will configure MySQL, Drupal, Nginx, and PHP-FPM. When the run
 is complete, you can access server (http://192.168.88.88/) to begin the Drupal
-configuration.
+configuration. You can also edit your `hosts` file to access the server with a
+domain name.
 
 Then run the playbook with a remote server instead of a vagrant VM you need to
 create a `hosts` file and a `site.yml` file and then run the `ansible-playbook`
@@ -37,6 +38,7 @@ Here are some ideas for ways that these playbooks could be extended:
 - add xhprof to the php role
 - test debian support
 - handle Drupal upgrades automatically.
+- add goaccess with geoip (http://dev.maxmind.com/geoip/legacy/install/country/)
 
 We would love to see contributions and improvements, so please fork this
 repository on GitHub and send us your changes via pull requests.
