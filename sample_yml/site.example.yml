@@ -1,7 +1,6 @@
 ---
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
   hosts: all
-  user: root
   remote_user: vagrant
   sudo: yes
 
@@ -11,7 +10,7 @@
     sites:
       drupal8.axai.org:
         git: "http://git.drupal.org/project/drupal.git"
-        version: 8.0.x
+        version: 8.1.x
         # use ssl
         #ssl: yes
         # use this if the site has aliases (so we can redirect)
