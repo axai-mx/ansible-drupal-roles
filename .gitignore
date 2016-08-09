@@ -3,3 +3,4 @@
 *site.yml
 .bundle/*
 www/*
+.DS_Store
