@@ -13,7 +13,7 @@ end
 vconfig = YAML::load_file("#{dir}/site.yml")[0]['vars']
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "geerlingguy/ubuntu1604"
 
   # Networking configuration.
   config.vm.hostname = vconfig['vagrant_hostname']
