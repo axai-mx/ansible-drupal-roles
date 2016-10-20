@@ -2,7 +2,7 @@
 - name: Install Drupal and Drush with MariaDB, Nginx, and PHP-FPM
   hosts: all
   remote_user: vagrant
-  sudo: yes
+  become: yes
 
   vars:
     vagrant_ip: 192.168.88.88

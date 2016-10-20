@@ -2,7 +2,7 @@
 - name: Install MariaDB
   hosts: db-server
   remote_user: myuser
-  sudo: yes
+  become: yes
 
   vars:
     mysql_root_password: 'my_secure_pass'
@@ -29,7 +29,7 @@
   hosts: drupal-server
   user: root
   remote_user: myuser
-  sudo: yes
+  become: yes
 
   vars:
     opcache_memory_consumption: 256

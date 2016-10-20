@@ -47,4 +47,4 @@
 
 - name: set up .vimrc for user
   get_url: url=https://gist.githubusercontent.com/jackbravo/7163461/raw/.vimrc dest=~/.vimrc
-  sudo: no
+  become: no

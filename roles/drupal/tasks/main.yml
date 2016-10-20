@@ -7,33 +7,33 @@
   
 - name: make sure the vhosts directory exists (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 owner={{ ansible_ssh_user }} group=users
-  with_dict: sites
+  with_dict: "{{ sites }}"
   ignore_errors: true
 
 - name: Clone the code from repository
   git: repo={{ item.value.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.value.version }} accept_hostkey=yes
-  with_dict: sites
-  sudo: no
+  with_dict: "{{ sites }}"
+  become: no
 
 - name: Create files folder (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
-  with_dict: sites
+  with_dict: "{{ sites }}"
   ignore_errors: true
 
 - name: Create cache folder (boost) (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/cache state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
-  with_dict: sites
+  with_dict: "{{ sites }}"
   ignore_errors: true
 
 - name: Copy default.settings.php file
   shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
-  with_dict: sites
+  with_dict: "{{ sites }}"
 
 - name: Set permissions for settings.php (ignore chgrp errors on vagrant)
   shell: chown {{ ansible_ssh_user }}:{{ www_user }} /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
-  with_dict: sites
+  with_dict: "{{ sites }}"
   ignore_errors: true
 
 - name: Create nginx configuration file for drupal sites with boost
@@ -62,23 +62,23 @@
 - name: Create a certificate signing request
   shell: umask 007 && openssl req -new -key /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.csr -sha256 -subj "/C=/ST=/L=/O=/CN={{ item.key }}"
     creates=/etc/nginx/ssl/{{ item.key }}.csr
-  with_dict: sites
+  with_dict: "{{ sites }}"
   when: item.value.ssl is defined
 
 - name: Create a SSL certificate by self-signing
   shell: umask 007 && openssl x509 -req -days 365 -in /etc/nginx/ssl/{{ item.key }}.csr -signkey /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.pem
     creates=/etc/nginx/ssl/{{ item.key }}.pem
-  with_dict: sites
+  with_dict: "{{ sites }}"
   when: item.value.ssl is defined
 
 - name: Create sites configurations (ssl)
   template: src=ssl.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
-  with_dict: sites
+  with_dict: "{{ sites }}"
   notify: restart nginx
   when: item.value.ssl is defined
 
 - name: Create sites configurations (non ssl)
   template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
-  with_dict: sites
+  with_dict: "{{ sites }}"
   notify: restart nginx
   when: item.value.ssl is not defined

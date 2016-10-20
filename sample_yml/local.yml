@@ -3,7 +3,7 @@
   hosts: drupal-server
   connection: local
   remote_user: jackbravo
-  sudo: yes
+  become: yes
 
   vars:
     sites:
