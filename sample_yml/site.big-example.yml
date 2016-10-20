@@ -53,6 +53,6 @@
     - { role: mailer, tags: [mailer] }
     - { role: nginx, tags: [nginx] }
     - { role: php-fpm, tags: [php-fpm] }
-    - { role: drush, tags: [drush] }
+    - { role: console, tags: [console] }
     - { role: drupal, tags: [drupal] }
     - { role: syslog, tags: [syslog] }
