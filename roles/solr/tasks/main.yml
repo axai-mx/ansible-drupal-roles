@@ -7,7 +7,11 @@
 
 - name: Ensure Java is installed (Debian).
   apt: name=openjdk-7-jdk state=installed
-  when: ansible_os_family == 'Debian'
+  when: ansible_distribution_release == 'trusty'
+
+- name: Ensure Java is installed (Debian).
+  apt: name=openjdk-8-jdk state=installed
+  when: ansible_distribution_release == 'xenial'
 
 - name: Get Solr 4.x
   get_url: url=http://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz dest=/opt/solr-4.10.4.tgz
