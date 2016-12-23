@@ -14,6 +14,7 @@
   git: repo={{ item.value.git }} dest=/var/www/vhosts/{{ item.key }}/drupal version={{ item.value.version }} accept_hostkey=yes
   with_dict: "{{ sites }}"
   become: no
+  ignore_errors: true
 
 - name: Create files folder (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }}/drupal/sites/default/files state=directory mode=2775 owner={{ ansible_ssh_user }} group={{ www_user }} recurse=yes
@@ -29,6 +30,7 @@
   shell: cp /var/www/vhosts/{{ item.key }}/drupal/sites/default/default.settings.php /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
     creates=/var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
   with_dict: "{{ sites }}"
+  ignore_errors: true
 
 - name: Set permissions for settings.php (ignore chgrp errors on vagrant)
   shell: chown {{ ansible_ssh_user }}:{{ www_user }} /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php && chmod 664 /var/www/vhosts/{{ item.key }}/drupal/sites/default/settings.php
