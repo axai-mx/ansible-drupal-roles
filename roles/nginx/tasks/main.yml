@@ -2,10 +2,7 @@
 - group_by: key={{ ansible_os_family }}
 
 - name: Install nginx on Ubuntu
-  apt: name={{ item }}
-  with_items:
-    - nginx
-    - letsencrypt
+  apt: name=nginx
   when: ansible_os_family == 'Debian'
 
 - name: Enable nginx repo on CentOS

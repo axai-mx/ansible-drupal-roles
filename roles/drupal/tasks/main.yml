@@ -1,4 +1,8 @@
 ---
+- name: Install nginx on Ubuntu
+  apt: name=letsencrypt
+  when: ansible_os_family == 'Debian'
+
 - group_by: key={{ ansible_os_family }}
 
 - name: make sure the ssh user is part of users
@@ -77,10 +81,30 @@
   template: src=ssl.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: "{{ sites }}"
   notify: restart nginx
-  when: item.value.ssl is defined
+  when: item.value.ssl is defined and item.value.ssl_and_http is not defined
+
+- name: Create sites configurations (ssl and http)
+  template: src=ssl_and_http.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
+  with_dict: "{{ sites }}"
+  notify: restart nginx
+  when: item.value.ssl is defined and item.value.ssl_and_http is defined
 
 - name: Create sites configurations (non ssl)
   template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: "{{ sites }}"
   notify: restart nginx
   when: item.value.ssl is not defined
+
+- cron:
+    name: "Cron for {{ item.key }}"
+    minute: "*/2"
+    job: "/usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal -l {{ item.value.names[0] }} cron"
+  become_user: "{{ www_user }}"
+  with_dict: "{{ sites }}"
+
+- cron:
+    name: "Renew letsencrypt on cron"
+    minute: "55"
+    hour: "2"
+    job: "letsencrypt renew"
+  when: ansible_os_family == 'Debian'
