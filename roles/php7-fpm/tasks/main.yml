@@ -21,6 +21,7 @@
     - php7.0-zip
     - php-mbstring
     - php-memcache
+    - php-soap
     - php-xml
     - mariadb-client
 
