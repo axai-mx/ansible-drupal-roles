@@ -62,7 +62,7 @@
     creates=/etc/nginx/ssl/dh2048.pem
 
 - name: Create a certificate signing request
-  shell: umask 007 && openssl req -new -key /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.csr -sha256 -subj "/C=/ST=/L=/O=/CN={{ item.key }}"
+  shell: umask 007 && openssl req -new -key /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.csr -sha256 -subj "/C=/ST=/L=/O=/CN={{ item.value.names[0] }}"
     creates=/etc/nginx/ssl/{{ item.key }}.csr
   with_dict: "{{ sites }}"
   when: item.value.ssl is defined
