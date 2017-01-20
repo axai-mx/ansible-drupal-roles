@@ -69,25 +69,33 @@
   shell: umask 007 && openssl req -new -key /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.csr -sha256 -subj "/C=/ST=/L=/O=/CN={{ item.value.names[0] }}"
     creates=/etc/nginx/ssl/{{ item.key }}.csr
   with_dict: "{{ sites }}"
-  when: item.value.ssl is defined
+  when:
+    - item.value.ssl is defined
+    - item.value.letsencrypt is not defined
 
 - name: Create a SSL certificate by self-signing
   shell: umask 007 && openssl x509 -req -days 365 -in /etc/nginx/ssl/{{ item.key }}.csr -signkey /etc/nginx/ssl/ssl_private_key.pem -out /etc/nginx/ssl/{{ item.key }}.pem
     creates=/etc/nginx/ssl/{{ item.key }}.pem
   with_dict: "{{ sites }}"
-  when: item.value.ssl is defined
+  when:
+    - item.value.ssl is defined
+    - item.value.letsencrypt is not defined
 
 - name: Create sites configurations (ssl)
   template: src=ssl.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: "{{ sites }}"
   notify: restart nginx
-  when: item.value.ssl is defined and item.value.ssl_and_http is not defined
+  when:
+    - item.value.ssl is defined
+    - item.value.ssl_and_http is not defined
 
 - name: Create sites configurations (ssl and http)
   template: src=ssl_and_http.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
   with_dict: "{{ sites }}"
   notify: restart nginx
-  when: item.value.ssl is defined and item.value.ssl_and_http is defined
+  when:
+    - item.value.ssl is defined
+    - item.value.ssl_and_http is defined
 
 - name: Create sites configurations (non ssl)
   template: src=default.conf dest=/etc/nginx/{{ nginx_conf_dir }}/{{ item.key }}.conf
