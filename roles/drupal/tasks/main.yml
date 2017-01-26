@@ -1,14 +1,10 @@
 ---
-- name: Install nginx on Ubuntu
-  apt: name=letsencrypt
-  when: ansible_os_family == 'Debian'
-
 - group_by: key={{ ansible_os_family }}
 
 - name: make sure the ssh user is part of users
   user: name={{ ansible_ssh_user }} groups=users,{{ www_user }} append=yes
   when: ansible_ssh_user != 'root'
-  
+
 - name: make sure the vhosts directory exists (ignore chgrp errors on vagrant)
   file: path=/var/www/vhosts/{{ item.key }} state=directory mode=2775 owner={{ ansible_ssh_user }} group=users
   with_dict: "{{ sites }}"
@@ -104,15 +100,8 @@
   when: item.value.ssl is not defined
 
 - cron:
-    name: "Cron for {{ item.key }}"
+    name: "Cron for {{ item.key }}"
     minute: "*/2"
     job: "/usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal -l {{ item.value.names[0] }} cron"
   become_user: "{{ www_user }}"
   with_dict: "{{ sites }}"
-
-- cron:
-    name: "Renew letsencrypt on cron"
-    minute: "55"
-    hour: "2"
-    job: "letsencrypt renew"
-  when: ansible_os_family == 'Debian'
