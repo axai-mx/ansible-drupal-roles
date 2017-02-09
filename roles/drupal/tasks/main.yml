@@ -101,7 +101,7 @@
 
 - cron:
     name: "Cron for {{ item.key }}"
-    minute: "*/2"
+    minute: "0"
     job: "/usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal -l {{ item.value.names[0] }} cron"
   become_user: "{{ www_user }}"
   with_dict: "{{ sites }}"
