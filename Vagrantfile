@@ -16,6 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "geerlingguy/ubuntu1604"
 
   # Networking configuration.
+  config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.hostname = vconfig['vagrant_hostname']
   if vconfig['vagrant_ip'] == "0.0.0.0" && Vagrant.has_plugin?("vagrant-auto_network")
     config.vm.network :private_network, :ip => vconfig['vagrant_ip'], :auto_network => true
