@@ -26,7 +26,8 @@
   roles:
     - { role: common, tags: [common] }
     - { role: mysql , tags: [mysql] }
-    #- { role: solr , tags: [solr] }
+    #- { role: geerlingguy.java, tags: [solr] }
+    #- { role: geerlingguy.solr, tags: [solr] }
     - { role: nginx, tags: [nginx] }
     #- { role: geerlingguy.memcached, tags: [memcached] }
     - { role: php7-fpm, tags: [php7-fpm] }
