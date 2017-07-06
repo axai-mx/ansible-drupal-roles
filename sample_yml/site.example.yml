@@ -31,6 +31,5 @@
     #- { role: geerlingguy.memcached, tags: [memcached] }
     - { role: php7-fpm, tags: [php7-fpm] }
     - { role: geerlingguy.composer, tags: [console] }
-    - { role: console, tags: [console] }
     - { role: drupal, tags: [drupal] }
  

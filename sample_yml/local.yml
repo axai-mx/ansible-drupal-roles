@@ -25,6 +25,5 @@
     - { role: mysql , tags: [mysql] }
     - { role: nginx, tags: [nginx] }
     - { role: php7-fpm, tags: [php7-fpm] }
-    - { role: console, tags: [console] }
     - { role: drupal, tags: [drupal] }
     #- { role: syslog, tags: [syslog] }
