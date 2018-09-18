@@ -98,10 +98,3 @@
   with_dict: "{{ sites }}"
   notify: restart nginx
   when: item.value.ssl is not defined
-
-- cron:
-    name: "Cron for {{ item.key }}"
-    minute: "0"
-    job: "/usr/local/bin/drush --root=/var/www/vhosts/{{ item.key }}/drupal -l {{ item.value.names[0] }} cron"
-  become_user: "{{ www_user }}"
-  with_dict: "{{ sites }}"
